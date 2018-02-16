@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PREFIX="rvben"
-IMAGE="rpi-jenkins"
+IMAGE="rpi-jenkins-new"
 VERSION=`date +'%Y%m%d'`
 LOCAL_REGISTRY="rpi1:5443"
 

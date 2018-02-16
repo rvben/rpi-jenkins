@@ -18,11 +18,8 @@ RUN apt-get update \
   && apt-get update \
   && apt-get install -y oracle-java8-installer --allow-unauthenticated \
   && curl -sSL "https://get.docker.com/" | sh \
-  && groupadd -g ${JENKINS_GID} ${JENKINS_GROUP} \
-  && useradd -d "$JENKINS_HOME" -u ${JENKINS_UID} -g ${JENKINS_GID} -m -s /bin/bash ${JENKINS_USER} \
-  && usermod -aG docker jenkins \
+  && groupdel docker \
   && mkdir -p /usr/share/jenkins/ref/init.groovy.d \
-  && chown -R ${JENKINS_USER} "$JENKINS_HOME" /usr/share/jenkins/ref \
   && curl -fsSL http://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war -o /usr/share/jenkins/jenkins.war \
   && curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/init.groovy -o /usr/share/jenkins/ref/init.groovy.d/tcp-slave-agent-port.groovy \
   && curl -fsSL https://raw.githubusercontent.com/jenkinsci/docker/master/jenkins.sh -o /usr/local/bin/jenkins.sh \
@@ -40,6 +37,6 @@ EXPOSE 8080
 EXPOSE 50000
 
 
-USER ${JENKINS_USER}
-
-ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
