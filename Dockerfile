@@ -1,4 +1,5 @@
 FROM arm32v7/debian:9-slim
+MAINTAINER Ruben J. Jongejan <ruben.jongejan@gmail.com>
 
 ENV JENKINS_VERSION="2.107" \
     JENKINS_UC=https://updates.jenkins.io \
@@ -31,11 +32,10 @@ RUN apt-get update \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/* /usr/lib/jvm/java-8-oracle/src.zip
 
-VOLUME /var/jenkins_home
+VOLUME ["${JENKINS_HOME}"]
 
 EXPOSE 8080
 EXPOSE 50000
-
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

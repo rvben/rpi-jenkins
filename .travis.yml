@@ -1,0 +1,16 @@
+sudo: required
+services:
+- docker
+language: bash
+env:
+  global:
+  - DOCKER_NAME=rvben/rpi-jenkins
+script:
+- docker run --rm --privileged multiarch/qemu-user-static:register --reset
+- docker build -t $DOCKER_NAME .
+- docker run $DOCKER_NAME --version
+- |
+  if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
+    docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
+    docker push $DOCKER_NAME
+  fi
