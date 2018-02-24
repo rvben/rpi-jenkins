@@ -5,10 +5,11 @@ language: bash
 env:
   global:
   - DOCKER_NAME=rvben/rpi-jenkins
+  - DOCKER_USER=rvben
+  - secure: N6fZB+7epZMv5XrGYGpBJSsha2qZ6Af8XOrGSFS4D0JIU7JUAj0bN9BPf+XLONa5fafWACXE80+Hw2p/rzLl9YpKTtypVlR4lvGqzVzyKa/hxFsyV2Y0JohnbC5u9N7cTTe1v0xcH0z/e0BcRZ4Ng6AKWgTenEFLD/MiFyu9vSVy+SwDJ+NGdW3adVojT9OoJ1h4/frrbV7Hu7Q3ClNrE7avD4ZRJBzalRKWf0YZWRVv8R8bdzm/hte/9W5SR379JIdNTUfw+6IA2ktiyvhjiNQ49d1ysreB8FOrISEJI1hzq0aQSNgcwrq4mMur+jzHr+cEb0zj2l3bOLhkpFp8n14a6EHfUM/L3RxwUqqWO1M6oZDeY54eVIdEKekwqONQS9/rBbbh+Y6KLZcsXaIweYYRcuPokXLOXTRiFEsW/yuPQrHFK4YF0gC9wjbRnU1jbkGynradWp3Nf5AGzjwJo7pXXYse7sjGerx5oOwG8UDN1WTpbB9eczNXem55LVs2FawZpnHtviHtmYXmeD6DOMZZ61r1yZOSqLktNG13J25pZtiSIZckbdKaef4W6HjmnPueFMEM6whWRRG9LDeDAJBikOiPnMNdIvGrh9z9X5DQbRUE1p2pJQu1YGt9po6NFNEfx47T47Eho1u/BjgbgKKGmpxvPGlB5wiwUuQuMXs=
 script:
 - docker run --rm --privileged multiarch/qemu-user-static:register --reset
 - docker build -t $DOCKER_NAME .
-- docker run $DOCKER_NAME --version
 - |
   if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     docker login -u="$DOCKER_USER" -p="$DOCKER_PASS"
