@@ -1,4 +1,4 @@
-FROM arm32v7/debian:9-slim
+FROM multiarch/debian-debootstrap:armhf-stretch
 MAINTAINER Ruben J. Jongejan <ruben.jongejan@gmail.com>
 
 ENV JENKINS_VERSION="2.107" \
