@@ -1,7 +1,7 @@
 FROM multiarch/debian-debootstrap:armhf-stretch
 MAINTAINER Ruben J. Jongejan <ruben.jongejan@gmail.com>
 
-ENV JENKINS_VERSION="2.107" \
+ENV JENKINS_VERSION="2.122" \
     JENKINS_UC=https://updates.jenkins.io \
     JENKINS_HOME=/var/jenkins_home \
     JENKINS_SLAVE_AGENT_PORT=50000 \
